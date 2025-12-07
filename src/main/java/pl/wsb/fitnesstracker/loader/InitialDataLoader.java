@@ -29,12 +29,16 @@ import static java.util.Objects.isNull;
 @Profile("loadInitialData")
 @Slf4j
 @ToString
-@RequiredArgsConstructor
 class InitialDataLoader {
 
     private final JpaRepository<User, Long> userRepository;
 
     private final JpaRepository<Training, Long> trainingRepository;
+
+    InitialDataLoader(JpaRepository<User, Long> userRepository, JpaRepository<Training, Long> trainingRepository) {
+        this.userRepository = userRepository;
+        this.trainingRepository = trainingRepository;
+    }
 
     @EventListener
     @Transactional
@@ -42,13 +46,11 @@ class InitialDataLoader {
     public void loadInitialData(ContextRefreshedEvent event) {
         verifyDependenciesAutowired();
 
-        log.info("Loading initial data to the database");
 
         List<User> sampleUserList = generateSampleUsers();
         List<Training> sampleTrainingList = generateTrainingData(sampleUserList);
 
 
-        log.info("Finished loading initial data");
     }
 
     private User generateUser(String name, String lastName, int age) {
@@ -73,6 +75,7 @@ class InitialDataLoader {
         users.add(generateUser("Grace", "Anderson", 33));
         users.add(generateUser("Oliver", "Swift", 29));
 
+        users.add(generateUser("Mikołaj", "Święty", 67));
         return users;
     }
 
