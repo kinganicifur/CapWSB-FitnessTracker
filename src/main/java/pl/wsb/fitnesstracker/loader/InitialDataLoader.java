@@ -1,6 +1,5 @@
 package pl.wsb.fitnesstracker.loader;
 
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
