@@ -1,24 +1,37 @@
 package pl.wsb.fitnesstracker.training.internal;
 
-import pl.wsb.fitnesstracker.training.api.Training;
-import pl.wsb.fitnesstracker.training.api.TrainingProvider;
-import pl.wsb.fitnesstracker.user.api.User;
+import org.springframework.stereotype.Service;
+import pl.wsb.fitnesstracker.training.api.*;
 
 import java.util.List;
 import java.util.Optional;
 
-// TODO: Provide Implementation and correct the return type of the method getTraining
-public class TrainingServiceImpl implements TrainingProvider {
+@Service
+class TrainingServiceImpl implements TrainingService, TrainingProvider {
 
-    @Override
-    public Optional<Training> getTraining(final Long trainingId) {
-        throw new UnsupportedOperationException("Not finished yet");
+    private final TrainingRepository trainingRepository;
+
+    TrainingServiceImpl(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
-    public List<User> findAllTrainings() {
-        return List.of();
+    public Optional<Training> getTraining(Long trainingId) {
+        return trainingRepository.findById(trainingId);
     }
 
+    @Override
+    public List<Training> getAllTrainings() {
+        return trainingRepository.findAll();
+    }
 
+    @Override
+    public List<Training> getAllTrainingsForDedicatedUser(Long userId) {
+        return trainingRepository.getTrainingsByUser(userId);
+    }
+
+    @Override
+    public List<Training> findAllTrainings() {
+        return trainingRepository.findAll();
+    }
 }
