@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+    driver-class-name: "org.h2.Driver"
+    username: "sa"
+    password: "password"
+  h2:
+    console:
+      enabled: true
+  mail:
+    # For testing (why process of e-mail sending should by asynchronous - change different port and wait for timeout ;)"
+    #    host: 'sandbox.smtp.mailtrap.io'
+    #    port: 2525, 587
+    host: 'sandbox.smtp.mailtrap.io'
+    port: 2525
+    username: 'c8d6cd20c1a5f9'
+    password: '5c1afdee1f2fde'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
